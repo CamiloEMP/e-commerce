@@ -1,39 +1,28 @@
 import type { GetStaticProps, GetStaticPaths } from 'next'
 
-import { useRouter } from 'next/router'
-
 import { Product } from 'interfaces/Products'
 import { getAllProducts } from 'services/getAllProducts'
 import { getProductById } from 'services/getProductById'
+import { ProductPage } from 'components/Product'
 
 const ProductId = ({ product }: { product: Product }) => {
-  const router = useRouter()
-
-  console.log(router.query.id)
-
-  if (router.isFallback) return <p>Loading...</p>
-
-  return <div>ProductId</div>
+  return <ProductPage {...product} />
 }
 
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const products: Product[] = await getAllProducts()
+export const getStaticPaths: GetStaticPaths = async () => {
+  const products: Product[] = await getAllProducts()
 
-//   const paths = products.map(product => ({
-//     params: { id: product.id },
-//   }))
+  const paths = products.map(product => ({
+    params: { id: product.id.toString() },
+  }))
 
-//   return { paths, fallback: false }
-// }
+  return { paths, fallback: false }
+}
 
-// export const getStaticProps: GetStaticProps = async ({ params }) => {
-//   console.log(params)
-//   const res = await fetch(`https://fakestoreapi.com/products/${params.id}`)
-//   const product = await res.json()
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const product = await getProductById(params.id)
 
-//   console.log(product)
-
-//   return { props: { product } }
-// }
+  return { props: { product } }
+}
 
 export default ProductId
