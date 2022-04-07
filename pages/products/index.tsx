@@ -5,6 +5,7 @@ import React from 'react'
 import { getAllProducts } from 'services/getAllProducts'
 import { Product } from 'interfaces/Products'
 import { CardProduct } from 'components/CardProduct'
+import { ListOfProducts } from 'container/ListOFProducts'
 
 interface Props {
   products: Product[]
@@ -12,11 +13,11 @@ interface Props {
 
 const AllProducts: React.FC<Props> = ({ products }) => {
   return (
-    <section className="flex flex-wrap gap-8 justify-center">
+    <ListOfProducts>
       {products.map(product => (
         <CardProduct key={product.id} {...product} />
       ))}
-    </section>
+    </ListOfProducts>
   )
 }
 

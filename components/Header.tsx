@@ -12,10 +12,10 @@ export const Header: React.FC = () => {
       <nav>
         <ul className="flex gap-6">
           <NavItem href="/products">Ver todo</NavItem>
-          <NavItem href="/categories/clothes/men">Ropa hombre</NavItem>
-          <NavItem href="/categories/clothes/woman">Ropa mujer</NavItem>
-          <NavItem href="/categories/electrodomestics">Electrodomesticos</NavItem>
-          <NavItem href="/categories/jawelery">Joyeria</NavItem>
+          <NavItem href="/products/categories/clothes/men">Ropa hombre</NavItem>
+          <NavItem href="/products/categories/clothes/woman">Ropa mujer</NavItem>
+          <NavItem href="/products/categories/electrodomestics">Electrodomesticos</NavItem>
+          <NavItem href="/products/categories/jawelery">Joyeria</NavItem>
           <li>
             <Link href="/">
               <a

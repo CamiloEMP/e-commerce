@@ -1,11 +1,37 @@
-import type { NextPage } from 'next'
+import type { GetStaticProps } from 'next'
 
-const Electrodomestics: NextPage = () => {
+import React from 'react'
+
+import { getProductByCategory } from 'services/getProductByCategory'
+import { Product } from 'interfaces/Products'
+import { CardProduct } from 'components/CardProduct'
+import { ListOfProducts } from 'container/ListOFProducts'
+import { Categorys } from 'constants/Cetegorys'
+
+interface Props {
+  products: Product[]
+}
+
+const Electrodomestics: React.FC<Props> = ({ products }) => {
   return (
-    <div>
-      <p className="text-2xl">Electrodomestics</p>
-    </div>
+    <ListOfProducts>
+      {products.map(product => (
+        <CardProduct key={product.id} {...product} />
+      ))}
+    </ListOfProducts>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const products: Product[] = await getProductByCategory(Categorys.ELECTRONICS)
+
+  if (!products) {
+    return { notFound: true }
+  }
+
+  return {
+    props: { products },
+  }
 }
 
 export default Electrodomestics
