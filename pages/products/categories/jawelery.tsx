@@ -5,8 +5,8 @@ import React from 'react'
 import { getProductByCategory } from 'services/getProductByCategory'
 import { Product } from 'interfaces/Products'
 import { CardProduct } from 'components/CardProduct'
-import { ListOfProducts } from 'container/ListOFProducts'
 import { Categorys } from 'constants/Cetegorys'
+import { ListOfProducts } from 'container/ListOfProducts'
 
 interface Props {
   products: Product[]
@@ -25,7 +25,6 @@ const Jawelery: React.FC<Props> = ({ products }) => {
 export const getStaticProps: GetStaticProps = async () => {
   const products: Product[] = await getProductByCategory(Categorys.JAWELERY)
 
-  console.log(products)
   if (!products) {
     return { notFound: true }
   }

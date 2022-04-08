@@ -12,6 +12,7 @@ export default function Document() {
       <body className="font-body">
         <Main />
         <NextScript />
+        <div id="modal-login" />
       </body>
     </Html>
   )
