@@ -2,10 +2,10 @@ import type { AppProps } from 'next/app'
 
 import { useState } from 'react'
 
-import { Layout } from 'container/Layout'
 import { Header } from 'components/Header'
-import { Modal } from 'components/Modal'
+import { Layout } from 'container/Layout'
 import { Login } from 'components/Login'
+import { Modal } from 'components/Modal'
 
 import '../styles/globals.css'
 import { UserContext } from 'context/UserContext'
@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <UserContext>
       <Layout>
         <Header setShow={setShow} />
-        <Component {...pageProps} />
+        <Component setShow={setShow} show={show} {...pageProps} />
       </Layout>
       {show ? (
         <Modal>

@@ -13,10 +13,12 @@ export const useUser = () => {
       setLoading(true)
       loginService({ username, password })
         .then(token => {
+          window.sessionStorage.setItem('token', token)
           setLoading(false)
           setToken(token)
         })
         .catch(() => {
+          window.sessionStorage.removeItem('token')
           setLoading(false)
           setError('Usuario o contraseña invalidos')
         })
@@ -25,7 +27,7 @@ export const useUser = () => {
   )
 
   const logout = useCallback(() => {
-    window.localStorage.removeItem('user-ecommerce')
+    window.sessionStorage.removeItem('token')
     setToken('')
   }, [setToken])
 

@@ -12,7 +12,9 @@ type Props = {
 }
 
 export const UserContext: React.FC<Props> = ({ children }: Props) => {
-  const [token, setToken] = useState('')
+  const [token, setToken] = useState(() => {
+    if (typeof window !== 'undefined') return window.sessionStorage.getItem('token')
+  })
 
   return <Context.Provider value={{ token, setToken } as JWT}>{children}</Context.Provider>
 }

@@ -2,17 +2,12 @@ import Link from 'next/link'
 import React from 'react'
 
 import { useUser } from 'hook/useUser'
+import { NavItem } from 'components/NavItem'
+import { NavUser } from 'components/NavUser'
+import { IShowModal } from 'interfaces/Modal'
 
-import { NavItem } from './NavItem'
-
-type Props = {
-  setShow: (show: boolean) => void
-}
-
-export const Header: React.FC<Props> = ({ setShow }: Props) => {
-  const { isLogged } = useUser()
-
-  console.log(isLogged)
+export const Header: React.FC<IShowModal> = ({ setShow }: IShowModal) => {
+  const { isLogged, logout } = useUser()
 
   return (
     <header className="flex items-center justify-between py-6 mb-10">
@@ -22,22 +17,17 @@ export const Header: React.FC<Props> = ({ setShow }: Props) => {
         </a>
       </Link>
       <nav>
-        <ul className="flex gap-6 items-center">
+        <ul className="flex gap-5 items-center">
           <NavItem href="/products">Ver todo</NavItem>
           <NavItem href="/products/categories/clothes/men">Ropa hombre</NavItem>
           <NavItem href="/products/categories/clothes/woman">Ropa mujer</NavItem>
           <NavItem href="/products/categories/electrodomestics">Electrodomesticos</NavItem>
           <NavItem href="/products/categories/jawelery">Joyeria</NavItem>
-          <li>
-            <button
-              className="border border-primary-900 p-2 rounded-sm transition-colors hover:bg-primary-900 hover:text-primary-100"
-              onClick={() => setShow(true)}
-            >
-              Iniciar sesión
-            </button>
-          </li>
         </ul>
       </nav>
+      <div className="flex items-center gap-5">
+        <NavUser isLogged={isLogged} logout={logout} setShow={setShow} />
+      </div>
     </header>
   )
 }
