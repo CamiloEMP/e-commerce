@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import React from 'react'
 
+import { useUser } from 'hook/useUser'
+
 import { NavItem } from './NavItem'
 
 type Props = {
@@ -8,10 +10,16 @@ type Props = {
 }
 
 export const Header: React.FC<Props> = ({ setShow }: Props) => {
+  const { isLogged } = useUser()
+
+  console.log(isLogged)
+
   return (
-    <header className="flex justify-between py-6 mb-10">
+    <header className="flex items-center justify-between py-6 mb-10">
       <Link href="/">
-        <a className="text-3xl font-semibold">Tu tienda Online</a>
+        <a className="text-3xl bg-primary-800 text-primary-100 py-4 px-6 font-semibold rounded-sm">
+          Tu tienda Online
+        </a>
       </Link>
       <nav>
         <ul className="flex gap-6 items-center">
