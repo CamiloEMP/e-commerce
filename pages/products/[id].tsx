@@ -6,7 +6,7 @@ import { getProductById } from 'services/getProductById'
 import { ProductPage } from 'components/Product'
 
 const ProductId = ({ product }: { product: Product }) => {
-  return <ProductPage {...product} />
+  return <ProductPage product={product} />
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {

@@ -4,9 +4,9 @@ import React from 'react'
 import { useUser } from 'hook/useUser'
 import { NavItem } from 'components/NavItem'
 import { NavUser } from 'components/NavUser'
-import { IShowModal } from 'interfaces/Modal'
+import { ShowModal } from 'interfaces/Modal'
 
-export const Header: React.FC<IShowModal> = ({ setShow }: IShowModal) => {
+export const Header: React.FC<ShowModal> = ({ setShow }: ShowModal) => {
   const { isLogged, logout } = useUser()
 
   return (

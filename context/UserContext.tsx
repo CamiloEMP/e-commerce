@@ -7,11 +7,7 @@ interface JWT {
 
 const Context = createContext({} as JWT)
 
-type Props = {
-  children: React.ReactNode
-}
-
-export const UserContext: React.FC<Props> = ({ children }: Props) => {
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [token, setToken] = useState(() => {
     if (typeof window !== 'undefined') return window.sessionStorage.getItem('token')
   })

@@ -1,53 +1,60 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { HeartIcon, ShoppingCartIcon } from '@heroicons/react/solid'
+import { ShoppingCartIcon } from '@heroicons/react/solid'
 
 import { Product } from 'interfaces/Products'
+import { CollectionObject } from 'interfaces/Collection'
 import { getColorByRating } from 'utils/getColorByRating'
 
-export const CardProduct: React.FC<Product> = ({
-  id,
-  title,
-  price,
-  category,
-  image,
-  rating,
-}: Product) => {
+interface Props {
+  product: Product
+  add: (product: CollectionObject) => void
+  shopCart: CollectionObject[]
+}
+
+export const CardProduct = ({ add, product, shopCart }: Props) => {
+  const { title, price, rating, image, category, id } = product
+  const productToAdd = { ...product, quantity: 1 }
   const colorRating = getColorByRating(rating.rate)
+  const isInShopCart = shopCart.find(item => item.id === id)
 
   return (
-    <Link href={`/products/${id}`}>
-      <a className="w-80 flex flex-col justify-between py-2 px-4 shadow-md transition-transform hover:scale-105">
-        <p className="text-center text-lg font-medium text-primary-900">{title}</p>
-        <div className="w-full flex justify-center mt-6">
-          <Image
-            alt={`product ${title} category ${category}`}
-            height={250}
-            src={image}
-            width={250}
-          />
-        </div>
-        <div className="mt-4">
-          <span className="text-lg">Price: {price}</span>
-          <div className="flex justify-between">
-            <div className="flex items-center text-lg">
-              <span>Rating: </span>
-              <span className="ml-2 pt-[1px]" style={{ color: colorRating }}>
-                {rating.rate}
-              </span>
-            </div>
-            <div className="flex gap-2">
-              <button>
-                <HeartIcon className="bg-primary-100 text-red-500 w-12 h-12 p-2 rounded-full transition-colors hover:bg-primary-300" />
-              </button>
-              <button>
-                <ShoppingCartIcon className="bg-primary-100 w-12 h-12 p-2 rounded-full transition-colors hover:bg-primary-300" />
-              </button>
+    <div>
+      <Link href={`/products/${id}`}>
+        <a className="w-80 h-[430px] flex flex-col justify-between border border-transparent py-2 px-4 shadow-md rounded-sm transition-colors hover:border-x-primary-600 hover:border-t-primary-600">
+          <p className="truncate text-center text-lg font-medium text-primary-900">{title}</p>
+          <div className="w-full flex justify-center mt-6">
+            <Image
+              alt={`product ${title} category ${category}`}
+              height={250}
+              src={image}
+              width={250}
+            />
+          </div>
+          <div className="mt-4">
+            <span className="text-lg">Precio por unidad: ${price}</span>
+            <div className="flex justify-between">
+              <div className="flex items-center text-lg">
+                <span>Valoración: </span>
+                <span className="ml-2 pt-[1px]" style={{ color: colorRating }}>
+                  {rating.rate}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
-      </a>
-    </Link>
+        </a>
+      </Link>
+      <div className="mt-[-1px]">
+        <button
+          className="w-full text-white flex items-center border-2 gap-2 p-2 justify-center rounded-sm font-semibold bg-primary-900 transition-opacity hover:opacity-80 disabled:opacity-75 disabled:cursor-not-allowed"
+          disabled={!!isInShopCart ? true : false}
+          onClick={() => add(productToAdd)}
+        >
+          <ShoppingCartIcon className="w-8 h-8" />
+          <span>Añadir al carrito</span>
+        </button>
+      </div>
+    </div>
   )
 }
