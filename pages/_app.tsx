@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import { Layout } from 'container/Layout'
 import { Header } from 'components/Header'
-import { Login } from 'Modals/Login'
+import { Login } from 'modals/Login'
 import { Modal } from 'components/Modal'
 import { Footer } from 'components/Footer'
 import { UserProvider } from 'context/UserContext'
