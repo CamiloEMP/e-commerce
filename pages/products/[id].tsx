@@ -19,7 +19,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return { paths, fallback: false }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+interface Props {
+  params: { id: string }
+}
+
+export const getStaticProps: GetStaticProps = async ctx => {
+  const params = ctx.params as Props['params']
   const product = await getProductById(params.id)
 
   return { props: { product } }

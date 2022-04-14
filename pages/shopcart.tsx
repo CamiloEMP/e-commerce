@@ -6,9 +6,9 @@ import { useCollection } from 'hook/useCollection'
 import { useUser } from 'hook/useUser'
 import { ListOfProducts } from 'container/ListOfProducts'
 import { ShowModal } from 'interfaces/Modal'
-import { PurchaseSummary } from 'components/PurchaseSummary'
+import { PurchaseSummary } from 'Modals/PurchaseSummary'
 import { Modal } from 'components/Modal'
-import { Success } from 'components/Success'
+import { Success } from 'Modals/Success'
 
 const Shopcart = ({ setShow }: ShowModal) => {
   const { isLogged } = useUser()
