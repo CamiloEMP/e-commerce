@@ -1,33 +1,31 @@
-import Link from 'next/link'
-import React from 'react'
+import { useState } from 'react'
 
 import { useUser } from 'hook/useUser'
-import { NavItem } from 'components/NavItem'
 import { NavUser } from 'components/NavUser'
+import { Sidebar } from 'components/Sidebar'
+import { MenuItems } from 'components/MenuItems'
 import { ShowModal } from 'interfaces/Modal'
 
-export const Header: React.FC<ShowModal> = ({ setShow }: ShowModal) => {
+export const Header = ({ setShow }: ShowModal) => {
   const { isLogged, logout } = useUser()
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="flex items-center justify-between py-6 mb-10">
-      <Link href="/">
-        <a className="text-3xl bg-primary-800 text-primary-100 py-4 px-6 font-semibold rounded-sm">
-          Tu tienda Online
-        </a>
-      </Link>
-      <nav>
-        <ul className="flex gap-5 items-center">
-          <NavItem href="/products">Ver todo</NavItem>
-          <NavItem href="/products/categories/clothes/men">Ropa hombre</NavItem>
-          <NavItem href="/products/categories/clothes/woman">Ropa mujer</NavItem>
-          <NavItem href="/products/categories/electrodomestics">Electrodomesticos</NavItem>
-          <NavItem href="/products/categories/jawelery">Joyeria</NavItem>
+    <header className="flex flex-col items-center justify-around lg:flex-row lg:justify-between py-6 mb-10">
+      <h1 className="w-full text-center lg:max-w-fit text-3xl bg-primary-800 text-primary-100 py-4 px-6 font-semibold rounded-sm">
+        Tu tienda Online
+      </h1>
+      <nav className="flex mt-4 justify-between w-full">
+        <div>
+          <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
+        </div>
+        <ul className="hidden lg:flex lg:gap-5 lg:items-center">
+          <MenuItems colors="text-primary-600 hover:text-primary-900" />
         </ul>
+        <div className="flex items-center gap-5">
+          <NavUser isLogged={isLogged} logout={logout} setShow={setShow} />
+        </div>
       </nav>
-      <div className="flex items-center gap-5">
-        <NavUser isLogged={isLogged} logout={logout} setShow={setShow} />
-      </div>
     </header>
   )
 }

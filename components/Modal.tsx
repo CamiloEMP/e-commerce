@@ -1,13 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-type Props = {
-  children: React.ReactNode
-}
+export const Modal = ({ children }: { children: React.ReactNode }) => {
+  const modalRoot = document.getElementById('modal')
 
-export const Modal: React.FC<Props> = ({ children }) => {
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 bg-[#0000007f]">{children}</div>,
-    document.getElementById('modal-login'),
+    <div className="fixed inset-0 z-30 bg-[#0000007f]">{children}</div>,
+    modalRoot as HTMLElement,
   )
 }

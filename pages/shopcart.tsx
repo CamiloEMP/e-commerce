@@ -1,11 +1,20 @@
-import { MinusCircleIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline'
+import { useState } from 'react'
 import Image from 'next/image'
+import { MinusCircleIcon, MinusIcon, PlusIcon } from '@heroicons/react/outline'
 
 import { useCollection } from 'hook/useCollection'
+import { useUser } from 'hook/useUser'
 import { ListOfProducts } from 'container/ListOfProducts'
+import { ShowModal } from 'interfaces/Modal'
+import { PurchaseSummary } from 'components/PurchaseSummary'
+import { Modal } from 'components/Modal'
+import { Success } from 'components/Success'
 
-const Shopcart = () => {
-  const { collection, remove, moreQuantity, lessQuantity } = useCollection()
+const Shopcart = ({ setShow }: ShowModal) => {
+  const { isLogged } = useUser()
+  const { collection, remove, moreQuantity, lessQuantity, reset } = useCollection()
+  const [isVisible, setIsVisible] = useState({ checkout: false, buy: false })
+
   const totalAccountBalance = collection.reduce((acc, item) => {
     return acc + item.price * item.quantity
   }, 0)
@@ -14,7 +23,7 @@ const Shopcart = () => {
     <>
       {collection.length === 0 ? (
         <h2 className="text-center text-4xl font-semibold rounded-sm py-4">
-          You don&apos;t have any items in your cart.
+          No tienes productos en tu carrito
         </h2>
       ) : (
         <div className="space-y-8">
@@ -48,11 +57,11 @@ const Shopcart = () => {
                   </div>
                   <div>
                     <button
-                      className="flex items-center border-2 border-rose-700 p-1 text-rose-700 rounded-sm"
+                      className="flex font-semibold items-center border-2 border-rose-700 p-1 text-rose-700 transition-colors hover:bg-rose-700 hover:text-primary-100 rounded-sm"
                       onClick={() => remove(product.id)}
                     >
                       <MinusCircleIcon className="w-6 h-6 mr-1" />
-                      <span className="text-sm">Remove product</span>
+                      <span className="text-sm">Quitar producto</span>
                     </button>
                   </div>
                 </div>
@@ -60,10 +69,29 @@ const Shopcart = () => {
             ))}
           </ListOfProducts>
           <div className="flex justify-center">
-            <button className="text-primary-100 flex items-center gap-2 p-2 px-6 justify-center rounded-sm font-semibold bg-primary-900 transition-opacity hover:opacity-80">
-              Comprar todo
+            <button
+              className="text-primary-900 border-2 border-primary-900 flex p-2 px-6 justify-center rounded-sm font-semibold transition-colors hover:bg-primary-900 hover:text-primary-100"
+              onClick={() => {
+                !isLogged ? setShow(true) : setIsVisible({ ...isVisible, checkout: true })
+              }}
+            >
+              Chequear pedido
             </button>
           </div>
+          {isVisible.checkout && (
+            <Modal>
+              <PurchaseSummary
+                collection={collection}
+                isVisible={isVisible}
+                setIsVisible={setIsVisible}
+              />
+            </Modal>
+          )}
+          {!isVisible.checkout && isVisible.buy && (
+            <Modal>
+              <Success isVisible={isVisible} reset={reset} setIsVisible={setIsVisible} />
+            </Modal>
+          )}
         </div>
       )}
     </>

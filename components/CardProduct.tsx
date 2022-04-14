@@ -20,7 +20,7 @@ export const CardProduct = ({ add, product, shopCart }: Props) => {
   const isInShopCart = shopCart.find(item => item.id === id)
 
   return (
-    <div>
+    <div className="flex flex-col justify-self-center">
       <Link href={`/products/${id}`}>
         <a className="w-80 h-[430px] flex flex-col justify-between border border-transparent py-2 px-4 shadow-md rounded-sm transition-colors hover:border-x-primary-600 hover:border-t-primary-600">
           <p className="truncate text-center text-lg font-medium text-primary-900">{title}</p>
@@ -28,6 +28,7 @@ export const CardProduct = ({ add, product, shopCart }: Props) => {
             <Image
               alt={`product ${title} category ${category}`}
               height={250}
+              loading="lazy"
               src={image}
               width={250}
             />
@@ -47,7 +48,7 @@ export const CardProduct = ({ add, product, shopCart }: Props) => {
       </Link>
       <div className="mt-[-1px]">
         <button
-          className="w-full text-white flex items-center border-2 gap-2 p-2 justify-center rounded-sm font-semibold bg-primary-900 transition-opacity hover:opacity-80 disabled:opacity-75 disabled:cursor-not-allowed"
+          className="w-full max-w-xs text-white flex items-center border-2 gap-2 p-2 justify-center rounded-sm font-semibold bg-primary-900 transition-opacity hover:opacity-80 disabled:opacity-75 disabled:cursor-not-allowed"
           disabled={!!isInShopCart ? true : false}
           onClick={() => add(productToAdd)}
         >

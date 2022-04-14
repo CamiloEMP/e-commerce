@@ -1,6 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { ShoppingCartIcon } from '@heroicons/react/solid'
+import { ArrowLeftIcon } from '@heroicons/react/solid'
 
 import { Product } from 'interfaces/Products'
 import { useCollection } from 'hook/useCollection'
@@ -9,9 +11,13 @@ export const ProductPage = ({ product }: { product: Product }) => {
   const { add, collection } = useCollection()
   const productToAdd = { ...product, quantity: 1 }
   const isInShopCart = collection.find(item => item.id === product.id)
+  const router = useRouter()
 
   return (
     <article className="relative flex justify-center gap-16 max-w-5xl mt-12 mx-auto shadow-lg py-24">
+      <button className="absolute top-4 left-4" type="button" onClick={() => router.back()}>
+        <ArrowLeftIcon className="w-8 h-8" />
+      </button>
       <aside>
         <Image
           alt={`product ${product.category} ${product.title} ${product.description}`}

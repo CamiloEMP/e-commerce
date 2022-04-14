@@ -4,11 +4,16 @@ import Link from 'next/link'
 type Props = {
   href: string
   children: React.ReactChild
+  colors: string
+  setIsOpen?: (bool: boolean) => void
 }
 
-export const NavItem: React.FC<Props> = ({ href, children }: Props) => {
+export const NavItem: React.FC<Props> = ({ href, colors, children, setIsOpen }: Props) => {
   return (
-    <li className="font-medium text-primary-600 transition-transform hover:scale-110 hover:text-primary-900">
+    <li
+      className={`font-medium  transition-transform hover:scale-110  ${colors}`}
+      onClick={setIsOpen ? () => setIsOpen(false) : () => {}}
+    >
       <Link href={href}>{children}</Link>
     </li>
   )

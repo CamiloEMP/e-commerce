@@ -6,6 +6,7 @@ import { Layout } from 'container/Layout'
 import { Header } from 'components/Header'
 import { Login } from 'components/Login'
 import { Modal } from 'components/Modal'
+import { Footer } from 'components/Footer'
 import { UserProvider } from 'context/UserContext'
 import { CollectionProvider } from 'context/CollectionContext'
 
@@ -19,8 +20,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       <UserProvider>
         <Layout>
           <Header setShow={setShow} />
-          <Component setShow={setShow} show={show} {...pageProps} />
+          <Component setShow={setShow} {...pageProps} />
         </Layout>
+        <Footer />
         {show ? (
           <Modal>
             <Login setShow={setShow} />

@@ -13,6 +13,17 @@ export const useCollection = () => {
     [collection, setCollection],
   )
 
+  const remove = useCallback(
+    (id: number) => {
+      const newCollection = collection.filter(
+        (collectionItem: CollectionObject) => collectionItem.id !== id,
+      )
+
+      setCollection(newCollection)
+    },
+    [collection, setCollection],
+  )
+
   const moreQuantity = useCallback(
     (id: number) => {
       const productId = collection.filter(product => product.id === id)
@@ -39,16 +50,9 @@ export const useCollection = () => {
     [collection, setCollection],
   )
 
-  const remove = useCallback(
-    (id: number) => {
-      const newCollection = collection.filter(
-        (collectionItem: CollectionObject) => collectionItem.id !== id,
-      )
+  const reset = useCallback(() => {
+    setCollection([])
+  }, [setCollection])
 
-      setCollection(newCollection)
-    },
-    [collection, setCollection],
-  )
-
-  return { collection, add, remove, moreQuantity, lessQuantity }
+  return { collection, add, remove, moreQuantity, lessQuantity, reset }
 }
