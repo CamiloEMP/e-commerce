@@ -6,8 +6,8 @@ import { useCollection } from 'hook/useCollection'
 import { useUser } from 'hook/useUser'
 import { ListOfProducts } from 'container/ListOfProducts'
 import { ShowModal } from 'interfaces/Modal'
-import { PurchaseSummary } from 'modals/PurchaseSummary'
 import { Modal } from 'components/Modal'
+import { PurchaseSummary } from 'modals/PurchaseSummary'
 import { Success } from 'modals/Success'
 
 const Shopcart = ({ setShow }: ShowModal) => {

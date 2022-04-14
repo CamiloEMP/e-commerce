@@ -8,8 +8,7 @@ import { Modal } from 'components/Modal'
 import { Footer } from 'components/Footer'
 import { UserProvider } from 'context/UserContext'
 import { CollectionProvider } from 'context/CollectionContext'
-
-import { Login } from '../modals/Login'
+import { Login } from 'modals/Login'
 
 import '../styles/globals.css'
 
